@@ -1,0 +1,12 @@
+version: "3.9"
+services:
+  rstudio:
+    build: .
+    ports:
+      - "8787:8787"
+    environment:
+      - PASSWORD=password
+      - DISABLE_AUTH=true
+    volumes:
+      - ./.config:/home/rstudio/.config/rstudio
+      - ./.workspace:/home/rstudio/workspace
