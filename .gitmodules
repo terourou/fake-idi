@@ -1,3 +1,3 @@
-[submodule "sqlserver/data/idi-data"]
-	path = sqlserver/data/idi-data
+[submodule "data/idi-data"]
+	path = data/idi-data
 	url = https://github.com/simon-anasta/randomly_generated_integrated_data

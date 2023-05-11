@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   rstudio:
-    build: .
+    build: rserver
     ports:
       - "8787:8787"
     environment:
@@ -10,36 +10,37 @@ services:
     volumes:
       - ./.config:/home/rstudio/.config/rstudio
       - ./.workspace:/home/rstudio/workspace
-  sqlserver:
-    image: mcr.microsoft.com/mssql/server:2019-latest
-    ports:
-      - "1433:1433"
-    environment:
-      - ACCEPT_EULA=Y
-      - SA_PASSWORD=Password123
-      - MSSQL_PID=Developer
-      - MSSQL_COLLATION=Latin1_General_BIN2
-    volumes:
-      - ./data:/var/opt/mssql/data
-      - ./log:/var/opt/mssql/log
-      - ./backup:/var/opt/mssql/backup
-      - ./secrets:/var/opt/mssql/secrets
-      - ./tmp:/var/opt/mssql/tmp
-      - ./host:/host
-    healthcheck:
-      test:
-        [
-          "CMD",
-          "/opt/mssql-tools/bin/sqlcmd",
-          "-S",
-          "localhost",
-          "-U",
-          "sa",
-          "-P",
-          "Password123",
-          "-Q",
-          "SELECT 1",
-        ]
-      interval: 5s
-      timeout: 5s
-      retries: 10
+      - ./data:/home/rstudio/data
+  # sqlserver:
+  #   image: mcr.microsoft.com/mssql/server:2019-latest
+  #   ports:
+  #     - "1433:1433"
+  #   environment:
+  #     - ACCEPT_EULA=Y
+  #     - SA_PASSWORD=Password123
+  #     - MSSQL_PID=Developer
+  #     - MSSQL_COLLATION=Latin1_General_BIN2
+  #   volumes:
+  #     - ./data:/var/opt/mssql/data
+  #     - ./log:/var/opt/mssql/log
+  #     - ./backup:/var/opt/mssql/backup
+  #     - ./secrets:/var/opt/mssql/secrets
+  #     - ./tmp:/var/opt/mssql/tmp
+  #     - ./host:/host
+  #   healthcheck:
+  #     test:
+  #       [
+  #         "CMD",
+  #         "/opt/mssql-tools/bin/sqlcmd",
+  #         "-S",
+  #         "localhost",
+  #         "-U",
+  #         "sa",
+  #         "-P",
+  #         "Password123",
+  #         "-Q",
+  #         "SELECT 1",
+  #       ]
+  #     interval: 5s
+  #     timeout: 5s
+  #     retries: 10
