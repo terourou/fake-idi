@@ -11,6 +11,7 @@ services:
       - ./.config:/home/rstudio/.config/rstudio
       - ./.workspace:/home/rstudio/workspace
       - ./data:/home/rstudio/data
+      - ./.env:/home/rstudio/.env
   # sqlserver:
   #   image: mcr.microsoft.com/mssql/server:2019-latest
   #   ports:

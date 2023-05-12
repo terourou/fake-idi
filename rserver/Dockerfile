@@ -18,4 +18,6 @@ RUN /bin/bash -c "source ~/.bashrc"
 RUN apt-get update && apt-get install -y unixodbc-dev
 RUN Rscript -e "install.packages(c('dbi', 'odbc'))"
 
-RUN install2.r readr
+RUN install2.r readr dotenv cli
+
+ADD startup.R /home/rstudio/.Rprofile

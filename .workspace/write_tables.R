@@ -1,4 +1,4 @@
-library(DBI)
+library(odbc)
 library(dotenv)
 
 driver <- Sys.getenv("DB_DRIVER")
@@ -9,13 +9,12 @@ pwd <- Sys.getenv("DB_PWD")
 port <- Sys.getenv("DB_PORT")
 
 con <- dbConnect(
-  odbc::odbc(),
-  Driver = driver,
-  Server = host,
-  Database = database,
-  UID = uid,
-  PWD = pwd,
-  Port = port,
+  odbc(),
+  driver = driver,
+  server = paste(host, port, sep = ","),
+  database = database,
+  uid = uid,
+  pwd = pwd,
   TrustServerCertificate = "yes"
 )
 
