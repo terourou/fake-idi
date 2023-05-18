@@ -1,57 +1,4 @@
--- sqlcmd -S $DB_HOST,$DB_PORT -U $DB_UID -P $DB_PWD -i /cmd/create.sql
-
-USE IDI;
-GO
-
-DROP TABLE IF EXISTS [ir_clean].[ird_ems];
-GO
-
-DROP SCHEMA IF EXISTS [ir_clean];
-GO
-
-CREATE SCHEMA [ir_clean] AUTHORIZATION admin
-  CREATE TABLE [ird_ems] (
-    ir_ems_doc_lodge_nbr	int,
-    ir_ems_doc_lodge_prefix_nbr	int,
-    ir_ems_doc_lodge_suffix_nbr	int,
-    ir_ems_earnings_not_liab_imp_ind	varchar(255),
-    ir_ems_earnings_not_liable_amt	decimal,
-    ir_ems_emp_specific_job_nbr	int,
-    ir_ems_employee_end_date	date,
-    ir_ems_employee_start_date	date,
-    ir_ems_employer_location_nbr	int,
-    ir_ems_ent_anzsic06_code	varchar(8),
-    ir_ems_ent_anzsic96_code	varchar(8),
-    ir_ems_enterprise_nbr	char,
-    ir_ems_fstc_amt	decimal,
-    ir_ems_gross_earnings_amt	decimal,
-    ir_ems_gross_earnings_imp_code	varchar(255),
-    ir_ems_income_source_code	varchar(5),
-    ir_ems_ird_timestamp_date	date,
-    ir_ems_line_nbr	int,
-    ir_ems_lump_sum_ind	char,
-    ir_ems_paye_deductions_amt	decimal,
-    ir_ems_paye_imp_ind	varchar(255),
-    ir_ems_pbn_anzsic06_code	varchar(8),
-    ir_ems_pbn_anzsic96_code	varchar(8),
-    ir_ems_pbn_nbr	char,
-    ir_ems_processed_date	date,
-    ir_ems_return_line_item_code	char,
-    ir_ems_return_period_date	date,
-    ir_ems_sl_amt	decimal,
-    ir_ems_snz_unique_nbr	bigint,
-    ir_ems_tax_code	char,
-    ir_ems_version_nbr	int,
-    ir_ems_withholding_type_code	char,
-    snz_employer_ird_uid	int,
-    snz_ird_uid	int,
-    snz_uid	int
-  )
-  GRANT SELECT ON [ird_ems] TO terourou;
-GO
-
-INSERT INTO [ir_clean].[ird_ems] (snz_uid, snz_ird_uid, snz_employer_ird_uid, ir_ems_employer_location_nbr, ir_ems_return_period_date, ir_ems_line_nbr, ir_ems_snz_unique_nbr, ir_ems_version_nbr, ir_ems_doc_lodge_prefix_nbr, ir_ems_doc_lodge_nbr, ir_ems_doc_lodge_suffix_nbr, ir_ems_gross_earnings_amt, ir_ems_gross_earnings_imp_code, ir_ems_paye_deductions_amt, ir_ems_paye_imp_ind, ir_ems_earnings_not_liable_amt, ir_ems_earnings_not_liab_imp_ind, ir_ems_fstc_amt, ir_ems_sl_amt, ir_ems_return_line_item_code, ir_ems_withholding_type_code, ir_ems_income_source_code, ir_ems_lump_sum_ind, ir_ems_tax_code, ir_ems_enterprise_nbr, ir_ems_pbn_nbr, ir_ems_pbn_anzsic06_code, ir_ems_ent_anzsic06_code)
-VALUES ( 402957, 5964932, 4652391,  9, '2000-01-31', 31, 1, 2, 38, 2, 15, 1542.9489, 1,   0.0000000, 0,   0.0000000, NULL,   0.0000000, 176.99697619, NULL, 'P', 'WAS', '', 'M', 9267779, 1772444, 'C224000', 'F341100'),
+( 402957, 5964932, 4652391,  9, '2000-01-31', 31, 1, 2, 38, 2, 15, 1542.9489, 1,   0.0000000, 0,   0.0000000, NULL,   0.0000000, 176.99697619, NULL, 'P', 'WAS', '', 'M', 9267779, 1772444, 'C224000', 'F341100'),
 (4933282,  526373, 7468965,  4, '2000-01-31', 31, 1, 1, 30, 3, 15,  422.1169, 0,  26.0291361, 0,   0.0000000, NULL,   0.0000000,   0.00000000, 66, 'P', 'WAS', '', 'M',  558879, 7957691, 'K631000', 'K631000'),
 (6344796, 1937887, 4693585,  3, '2000-01-31', 31, 1, 1, 12, 7, 12, 1114.9573, 0,   0.0000000, 0,   0.0000000, NULL,  11.2259916, 102.78960480, 56, 'P', 'WAS', 'Y', 'M', 2998299,  152438, 'B080300', 'B080300'),
 (8291158, 3884249, 2284648,  2, '2000-01-31', 31, 1, 2, 88, 1, 13,  931.1926, 0,   0.0000000, 0,  70.4965343, NULL,   0.0000000,   0.00000000, 66, 'S', 'WAS', 'Y', 'M', 9910407, 6899640, 'P802400', 'P802400'),
@@ -1050,5 +997,4 @@ VALUES ( 402957, 5964932, 4652391,  9, '2000-01-31', 31, 1, 2, 38, 2, 15, 1542.9
 (9170136, 4763227, 6486390,  7, '2000-05-31', 31, 1, 2, 88, 6, 12,  634.5791, 0,   0.0000000, 0,  32.6626948, NULL,   0.0000000,   0.00000000, 46, 'S', 'WAS', '', 'M',  297434, 8488347, 'S960300', 'F371100'),
 (8312424, 3905515, 1095306, 14, '2000-05-31', 33, 1, 3, 15, 4, 11,  860.5806, 0,   0.0000000, 0,   0.0000000, NULL,  43.4989184,   0.00000000, 56, 'S', 'WAS', 'N', 'M', 2582933, 6899640, 'P802400', 'A012200'),
 (2051650, 7613625, 9951345,  2, '2000-05-31', 33, 1, 2, 54, 3, 12,  325.7723, 1,  26.1533813, 1,   0.0000000, NULL,   0.0000000,  33.80648646, 56, 'M', 'BEN', '', 'M', NULL, NULL, '', ''),
-(4651100,  244191, 7699211,  2, '2000-05-31', 31, 1, 2, 54, 8, 14,  836.1128, 0,   0.0000000, 0,   0.0000000, NULL,   0.0000000,   0.00000000, 56, 'S', 'WAS', 'N', 'S', 5698425, 3121753, 'C246300', 'C246300');
-GO
+(4651100,  244191, 7699211,  2, '2000-05-31', 31, 1, 2, 54, 8, 14,  836.1128, 0,   0.0000000, 0,   0.0000000, NULL,   0.0000000,   0.00000000, 56, 'S', 'WAS', 'N', 'S', 5698425, 3121753, 'C246300', 'C246300')

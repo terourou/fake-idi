@@ -8,5 +8,3 @@ run: build
 
 build: Dockerfile
 	docker build -t terourou/idi .
-
-.PHONY: run

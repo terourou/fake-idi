@@ -1,0 +1,16 @@
+DROP SCHEMA IF EXISTS [data];
+GO
+CREATE SCHEMA [data];
+GO
+DROP SCHEMA IF EXISTS [ir_clean];
+GO
+CREATE SCHEMA [ir_clean];
+GO
+DROP SCHEMA IF EXISTS [moh_clean];
+GO
+CREATE SCHEMA [moh_clean];
+GO
+DROP SCHEMA IF EXISTS [nzta_clean];
+GO
+CREATE SCHEMA [nzta_clean];
+GO

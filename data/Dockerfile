@@ -1,3 +1,4 @@
+#FROM rocker/r-ver:4.2
 FROM ubuntu:22.04
 
 # MS SQL Server stuff - from https://github.com/microsoft/mssql-docker/blob/master/linux/mssql-tools/Dockerfile.ubuntu2004
@@ -14,6 +15,15 @@ RUN apt-get update && ACCEPT_EULA=Y apt-get install -y msodbcsql18 mssql-tools18
 RUN echo 'export PATH="$PATH:/opt/mssql-tools18/bin"' >> ~/.bashrc
 RUN /bin/bash -c "source ~/.bashrc"
 
-COPY create_schemas.sql /opt/create_schemas.sql
+CMD /opt/mssql-tools18/bin/sqlcmd -S $DB_HOST,$DB_PORT -U $DB_UID -P $DB_PWD -C -i /data/create_schemas.sql
 
-CMD /opt/mssql-tools18/bin/sqlcmd -S $DB_HOST,$DB_PORT -U $DB_UID -P $DB_PWD -C -i /opt/create_schemas.sql
+# install a bunch of packages for the IDI
+# RUN apt-get update && apt-get install -y unixodbc-dev
+# #r-base r-base-dev
+# RUN Rscript -e "install.packages(c('dbi', 'odbc', 'dotenv'))"
+
+# RUN install2.r dotenv
+
+# COPY create_db.R .Rprofile
+
+# CMD ["R"]
