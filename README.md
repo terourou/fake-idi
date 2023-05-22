@@ -6,7 +6,6 @@ A reproduction of the Stats NZ Data Lab environment for R users to explore synth
 
 You might need to use `sudo ...` to run the docker commands if you are not in the `docker` group.
 
-````shell
 ```shell
 docker pull ghcr.io/terourou/fake-idi:main
 docker run -it --rm \
@@ -14,7 +13,7 @@ docker run -it --rm \
     -e DISABLE_AUTH=true \
     -v ./.workspace:/home/rstudio/workspace \
     ghcr.io/terourou/fake-idi:main
-````
+```
 
 Then go to `localhost:8787` in your browser.
 
