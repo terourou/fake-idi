@@ -6,7 +6,7 @@ A reproduction of the Stats NZ Data Lab environment for R users to explore synth
 
 You might need to use `sudo ...` to run the docker commands if you are not in the `docker` group.
 
-```shell
+```bash
 docker pull ghcr.io/terourou/fake-idi:main
 docker run -it --rm \
     -p 8787:8787 \
