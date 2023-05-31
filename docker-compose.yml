@@ -6,14 +6,8 @@ services:
       - "8787:8787"
     environment:
       - PASSWORD=password
-      - DISABLE_AUTH=true
+      # - DISABLE_AUTH=true
     volumes:
       - ./.config:/home/rstudio/.config/rstudio
       - ./.workspace:/home/rstudio/workspace
       - ./.env:/home/rstudio/.env
-  # sql:
-  #   build: data
-  #   ports:
-  #     - "5433:5432"
-  #   volumes:
-  #     - ./data/idi-data:/data

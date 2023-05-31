@@ -20,4 +20,16 @@ RUN Rscript -e "install.packages(c('dbi', 'odbc'))"
 
 RUN install2.r readr dotenv cli
 
-ADD startup.R /home/rstudio/.Rprofile
+ADD startup.R /usr/local/lib/R/etc/Rprofile.site
+
+# create users [tom, colin, barry, andrew, robin, alex]
+RUN useradd -m -d /home/tom -s /bin/bash tom
+RUN useradd -m -d /home/colin -s /bin/bash colin
+RUN useradd -m -d /home/barry -s /bin/bash barry
+RUN useradd -m -d /home/andrew -s /bin/bash andrew
+
+# set all user passwords to 'password'
+RUN echo "password\npassword" | passwd tom
+RUN echo "password\npassword" | passwd colin
+RUN echo "password\npassword" | passwd barry
+RUN echo "password\npassword" | passwd andrew
