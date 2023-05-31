@@ -27,9 +27,13 @@ RUN useradd -m -d /home/tom -s /bin/bash tom
 RUN useradd -m -d /home/colin -s /bin/bash colin
 RUN useradd -m -d /home/barry -s /bin/bash barry
 RUN useradd -m -d /home/andrew -s /bin/bash andrew
+RUN useradd -m -d /home/robin -s /bin/bash robin
+RUN useradd -m -d /home/alex -s /bin/bash alex
 
 # set all user passwords to 'password'
 RUN echo "password\npassword" | passwd tom
 RUN echo "password\npassword" | passwd colin
 RUN echo "password\npassword" | passwd barry
 RUN echo "password\npassword" | passwd andrew
+RUN echo "password\npassword" | passwd robin
+RUN echo "password\npassword" | passwd alex
