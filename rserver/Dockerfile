@@ -18,7 +18,7 @@ RUN /bin/bash -c "source ~/.bashrc"
 RUN apt-get update && apt-get install -y unixodbc-dev
 RUN Rscript -e "install.packages(c('dbi', 'odbc'))"
 
-RUN install2.r readr dotenv cli
+RUN install2.r readr dotenv cli tidyverse dbplyr
 
 ADD startup.R /usr/local/lib/R/etc/Rprofile.site
 
