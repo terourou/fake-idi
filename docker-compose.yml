@@ -11,3 +11,4 @@ services:
       - ./.config:/home/rstudio/.config/rstudio
       - ./.workspace:/home/rstudio/workspace
       - ./.env:/home/rstudio/.env
+      - ./rserver/demo:/home/rstudio/demo

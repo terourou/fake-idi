@@ -15,12 +15,15 @@ RUN echo 'export PATH="$PATH:/opt/mssql-tools18/bin"' >> ~/.bashrc
 RUN /bin/bash -c "source ~/.bashrc"
 
 # install a bunch of packages for the IDI
-RUN apt-get update && apt-get install -y unixodbc-dev
-RUN Rscript -e "install.packages(c('dbi', 'odbc'))"
+RUN apt-get update && apt-get install -y unixodbc-dev libxml2-dev libcurl4-openssl-dev libssl-dev
+RUN Rscript -e "install.packages(c('dbi', 'odbc', 'xml2'))"
 
 RUN install2.r readr dotenv cli tidyverse dbplyr
 
 ADD startup.R /usr/local/lib/R/etc/Rprofile.site
+
+# add files as read-only
+ADD demo /home/rstudio/shared/demo
 
 # create users [tom, colin, barry, andrew, robin, alex, eileen]
 RUN useradd -m -d /home/tom -s /bin/bash tom
@@ -39,3 +42,12 @@ RUN echo "password\npassword" | passwd andrew
 RUN echo "password\npassword" | passwd robin
 RUN echo "password\npassword" | passwd alex
 RUN echo "password\npassword" | passwd eileen
+
+# link /home/rstudio/shared to /home/{user}}/shared
+RUN ln -s /home/rstudio/shared /home/tom/shared
+RUN ln -s /home/rstudio/shared /home/colin/shared
+RUN ln -s /home/rstudio/shared /home/barry/shared
+RUN ln -s /home/rstudio/shared /home/andrew/shared
+RUN ln -s /home/rstudio/shared /home/robin/shared
+RUN ln -s /home/rstudio/shared /home/alex/shared
+RUN ln -s /home/rstudio/shared /home/eileen/shared
