@@ -1,4 +1,5 @@
-varlist <- readr::read_csv("variable-lists/varlist.csv") |>
+varlist <- readxl::read_excel("variable-lists/varlist.xlsx") |>
+    # varlist <- readr::read_csv("variable-lists/varlist.csv") |>
     dplyr::select(-TABLE_CATALOG)
 
 schemas <- tapply(
