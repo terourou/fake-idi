@@ -1,50 +1,37 @@
+invisible(sapply(list.files("functions", full.names = TRUE), source))
+
 varlist <- readxl::read_excel("variable-lists/varlist.xlsx") |>
     # varlist <- readr::read_csv("variable-lists/varlist.csv") |>
     dplyr::select(-TABLE_CATALOG)
 
-schemas <- tapply(
-    seq_len(nrow(varlist)),
-    varlist$TABLE_SCHEMA,
+schemas <- read_schemas(varlist)
+
+uid_matches <- get_uid_matches(schemas)
+
+# simple fake_data
+# fake_data <- lapply(schemas, \(x) lapply(x, generate_data, linking_vars = uid_matches))
+
+
+# randomly generate linkable data
+# uid_matrix <- generate_link_matrix(uid_matches)
+
+raw_ids <- sample(1e7:1e8, 1e6)
+unique_uids <- uid_matches[sapply(uid_matches, length) == 0] |>
+    names() |>
+    as.factor()
+uid_values <- purrr::map_dfc(
+    seq_along(levels(unique_uids)),
     \(i) {
-        x <- varlist[i, ] |> dplyr::select(-TABLE_SCHEMA)
-    }
-) |> lapply(
-    function(x) {
-        tapply(
-            seq_len(nrow(x)),
-            x$TABLE_NAME,
-            \(i) {
-                x[i, ] |> dplyr::select(-TABLE_NAME)
-            }
-        )
+        uid <- levels(unique_uids)[i]
+        tibble::tibble(!!uid := raw_ids + i * 12)
     }
 )
 
-# unique_id_variables <- lapply(
-#     schemas,
-#     \(x) lapply(
-#         x,
-#         \(y) y$COLUMN_NAME[grepl("uid$", y$COLUMN_NAME)]
-#     ) |> unlist()
-# ) |> unlist() |> as.character() |> unique()
-
-generate_data <- function(table_schema, n = 1000L) {
-    apply(
-        table_schema, 1L,
-        function(x) {
-            switch(x[2],
-                "date" = Sys.Date() - sample(1:365, n, replace = TRUE),
-                "char" = sample(LETTERS, n, replace = TRUE),
-                "varchar" = matrix(sample(LETTERS, n * 8, replace = TRUE),
-                    nrow = n
-                ) |> apply(1L, paste, collapse = ""),
-                "int" = sample(1:100, n, replace = TRUE),
-                "smallint" = sample(0:9, n, replace = TRUE),
-                "decimal" = runif(n, 0, 100)
-            )
-        },
-        simplify = FALSE
-    ) |>
-        setNames(table_schema$COLUMN_NAME) |>
-        tibble::as_tibble()
-}
+fake_data <- pbapply::pblapply(
+    schemas,
+    \(x) lapply(x, generate_data,
+        linking_vars = uid_matches,
+        uids = uid_values,
+        n = 10
+    )
+)
