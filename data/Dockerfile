@@ -15,7 +15,11 @@ RUN apt-get update && ACCEPT_EULA=Y apt-get install -y msodbcsql18 mssql-tools18
 RUN echo 'export PATH="$PATH:/opt/mssql-tools18/bin"' >> ~/.bashrc
 RUN /bin/bash -c "source ~/.bashrc"
 
-CMD /opt/mssql-tools18/bin/sqlcmd -S $DB_HOST,$DB_PORT -U $DB_UID -P $DB_PWD -C -i /data/create_db.sql
+COPY create_db.sh /create_db.sh
+RUN chmod +x /create_db.sh
+
+CMD /create_db.sh
+# CMD /opt/mssql-tools18/bin/sqlcmd -S $DB_HOST,$DB_PORT -U $DB_UID -P $DB_PWD -C -i /data/create_db.sql
 
 # install a bunch of packages for the IDI
 # RUN apt-get update && apt-get install -y unixodbc-dev

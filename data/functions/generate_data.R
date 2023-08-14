@@ -44,7 +44,11 @@ generate_data <- function(schema, linking_vars, uids, n = 1000L) {
                     stringr::str_match(type, "\\((\\d+),\\s*(\\d+)\\)")[, 2:3] |>
                         as.numeric() |>
                         (function(x) {
-                            round(runif(1, 0, 10^(x[1] - 2) - 1), x[2])
+                            s <- x[1]
+                            p <- x[2]
+                            d <- x[1] - x[2]
+                            # runif(n, 1, 10^d) + runif(n, 0, 10^p) / 10^p
+                            round(runif(n, 0, 10^(x[1] - x[2])), x[2])
                         })()
                 } else {
                     switch(type,
