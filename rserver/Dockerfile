@@ -33,6 +33,7 @@ RUN useradd -m -d /home/andrew -s /bin/bash andrew
 RUN useradd -m -d /home/robin -s /bin/bash robin
 RUN useradd -m -d /home/alex -s /bin/bash alex
 RUN useradd -m -d /home/eileen -s /bin/bash eileen
+RUN useradd -m -d /home/simon -s /bin/bash simon
 
 # set all user passwords to 'password'
 RUN echo "password\npassword" | passwd tom
@@ -42,6 +43,7 @@ RUN echo "password\npassword" | passwd andrew
 RUN echo "password\npassword" | passwd robin
 RUN echo "password\npassword" | passwd alex
 RUN echo "password\npassword" | passwd eileen
+RUN echo "terourouSNZ\nterourouSNZ" | passwd simon
 
 # link /home/rstudio/shared to /home/{user}}/shared
 RUN ln -s /home/rstudio/shared /home/tom/shared
@@ -51,3 +53,4 @@ RUN ln -s /home/rstudio/shared /home/andrew/shared
 RUN ln -s /home/rstudio/shared /home/robin/shared
 RUN ln -s /home/rstudio/shared /home/alex/shared
 RUN ln -s /home/rstudio/shared /home/eileen/shared
+RUN ln -s /home/rstudio/shared /home/simon/shared
