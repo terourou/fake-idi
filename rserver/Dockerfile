@@ -25,7 +25,7 @@ ADD startup.R /usr/local/lib/R/etc/Rprofile.site
 # add files as read-only
 ADD demo /home/rstudio/shared/demo
 
-# create users [tom, colin, barry, andrew, robin, alex, eileen]
+# create users [tom, colin, barry, andrew, robin, alex, eileen, simon, caleb, pim]
 RUN useradd -m -d /home/tom -s /bin/bash tom
 RUN useradd -m -d /home/colin -s /bin/bash colin
 RUN useradd -m -d /home/barry -s /bin/bash barry
@@ -34,6 +34,8 @@ RUN useradd -m -d /home/robin -s /bin/bash robin
 RUN useradd -m -d /home/alex -s /bin/bash alex
 RUN useradd -m -d /home/eileen -s /bin/bash eileen
 RUN useradd -m -d /home/simon -s /bin/bash simon
+RUN useradd -m -d /home/caleb -s /bin/bash caleb
+RUN useradd -m -d /home/pim -s /bin/bash pim
 
 # set all user passwords to 'password'
 RUN echo "password\npassword" | passwd tom
@@ -44,6 +46,8 @@ RUN echo "password\npassword" | passwd robin
 RUN echo "password\npassword" | passwd alex
 RUN echo "password\npassword" | passwd eileen
 RUN echo "terourouSNZ\nterourouSNZ" | passwd simon
+RUN echo "terourouSNZ\nterourouSNZ" | passwd caleb
+RUN echo "password\npassword" | passwd pim
 
 # link /home/rstudio/shared to /home/{user}}/shared
 RUN ln -s /home/rstudio/shared /home/tom/shared
@@ -54,3 +58,5 @@ RUN ln -s /home/rstudio/shared /home/robin/shared
 RUN ln -s /home/rstudio/shared /home/alex/shared
 RUN ln -s /home/rstudio/shared /home/eileen/shared
 RUN ln -s /home/rstudio/shared /home/simon/shared
+RUN ln -s /home/rstudio/shared /home/caleb/shared
+RUN ln -s /home/rstudio/shared /home/pim/shared
